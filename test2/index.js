@@ -39,62 +39,62 @@ const database = {
   251: { id: 251, name: "SecondBestFriend", friends: [621] },
   631: { id: 631, name: "ThirdWh33l", friends: [621, 123, 251] },
 };
-const ids = [621, 123, 251, 631];
 
-let listOfObjects = [];
-let listOfIds = [];
-const getUser = (id, arrayToStore) =>
+const result = [];
+const ids = [621, 123, 251, 631];
+const arrayOfObjects = [];
+let array = {};
+const getUser = (id, array) =>
   new Promise((res, rej) => {
     setTimeout(() => {
       database[id] ? res(database[id]) : rej(new Error("not_found"));
     }, 300);
-    return arrayToStore.push(database[id]);
+    array.friends = (database[id]);
+    arrayOfObjects.push(database[id])
   });
 
-
-
-for (index in ids) {
-    getUser(ids[index], listOfObjects);
+for(index in ids){
+    getUser(ids[index], array);
 }
-console.log('listOfObjects: ');
-console.log(listOfObjects);
+
+// console.log(arrayOfObjects[0].friends);
+const som = arrayOfObjects.find(x => x.id === 621);
 
 
-const result = [];
-
-
-console.log(result);
-
-// const doTheThing = (ArrayOfObjects, ArrayToStoreObject) => {
+const getFullObject = (arrayOfObjects) => {
+  
+    for(let i=0;i<arrayOfObjects.length;i++){
+    let object = 
+        {
+            id: arrayOfObjects[i].id,
+            name: arrayOfObjects[i].name,
+            friends: function(){
+            let friendArray = arrayOfObjects[i].friends;
+            let rightFriends = [];
+            for(let i=0;i<friendArray.length;i++){
+            let fren = arrayOfObjects.find(x => x.id === friendArray[i])
+            rightFriends.push(fren);
+            }
+            return object.friends = rightFriends
+          }
+            
+        }
     
-//   for (index in ArrayOfObjects) {
-//     friendsArray = ArrayOfObjects[index].friends;
-    
-//     let object = {
-//       id: ArrayOfObjects[index].id,
-//       name: ArrayOfObjects[index].name,
-//       friends: friendsArray,
-//     };
-//     return ArrayToStoreObject.push(object);
-//   }
+    object.friends()
+    console.log(object);
+}
+
+
+
+}
+
+getFullObject(arrayOfObjects);
+
+
 
   
-// };
 
 
-
-//   console.log('result');
-//   console.log(result);
-
-
-// const getFriends = (friendsArray)=>{
-   
-// }
-
-// getFriends(friendsArray)
-
-
-// console.log(result);
 
 // const validate = (result) => {
 //     try {
