@@ -1,32 +1,25 @@
 const assert = require("chai").assert;
 
-const names = [
-    "David Erik Svensson",
-    "ELIN AMANDA gabriella SELLIN",
-    "Pippilotta Viktualia Rullgardina Krusmynta Efraimsdotter LÅNGSTRUMP",
-    "Kalle Anka",
-    "Ghandi"
+const positions = [
+    { a: ["C", 2], b: ["D", 4], canAttack: true },
+    { a: ["F", 7], b: ["E", 5], canAttack: true },
+    { a: ["C", 2], b: ["A", 1], canAttack: true },
+    { a: ["A", 6], b: ["B", 4], canAttack: true },
+    { a: ["A", 6], b: ["B", 5] },
+    { a: ["C", 2], b: ["C", 2] },
+    { a: ["A", -1], b: ["B", 1] },
+    { a: ["D", 4], b: ["E", 5] },
 ];
 
-const expected = [
-    { first: "David", middle: ["Erik"], last: "Svensson" },
-    { first: "ELIN", middle: ["AMANDA", "gabriella"], last: "Sellin" },
-    { first: "Pippilotta", middle: ["Viktualia", "Rullgardina", "Krusmynta", "Efraimsdotter"], last: "LÅNGSTRUMP" },
-    { first: "Kalle", middle: [], last: "Anka" },
-    { first: "Ghandi", middle: [], last: null },
-];
+// implement this method to test if two knights threaten eachother
+const canAttack = (a, b) => {
+    return true;
+}
 
-const validate = (expected) => {
+positions.forEach(test => {
     try {
-        assert.deepEqual(expected, expected);
-        console.log("yay");
+        assert.equal(canAttack(test.a, test.b), !!test.canAttack);
     } catch (e) {
-        console.error("Failed", e);
+        console.error("FAILED", test);
     }
-};
-
-// implement code generating result
-const result = [];
-
-// At the end call validate
-validate(expected);
+});
