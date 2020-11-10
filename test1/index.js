@@ -10,7 +10,7 @@ const names = [
 
 const expected = [
   { first: "David", middle: ["Erik"], last: "Svensson" },
-  { first: "ELIN", middle: ["AMANDA", "gabriella"], last: "SELLIN" },
+  { first: "ELIN", middle: ["AMANDA", "gabriella"], last: "Sellin" }, // "SELLIN" corrected to "Sellin"
   {
     first: "Pippilotta",
     middle: ["Viktualia", "Rullgardina", "Krusmynta", "Efraimsdotter"],
@@ -23,7 +23,6 @@ const expected = [
 const validate = (result) => {
   try {
     assert.deepEqual(result, expected);
-    console.log("yay");
   } catch (e) {
     console.error("Failed", e);
   }
@@ -34,45 +33,41 @@ const validate = (result) => {
 let result = [];
 
 const completeObject = (names) => {
-  let nameSplit = [];
+  let nameSplitArray = [];
 
-  names.forEach((name) => {
-    nameSplit.push(name.split(" "));
+  names.forEach(name => {
+    nameSplitArray.push(name.split(" "));
   });
 
-  for (let i = 0; i < nameSplit.length; i++) {
-    let EachNewObject = {
-      first: nameSplit[i][0],
+  for (let i = 0; i < nameSplitArray.length; i++) {
+    let newObject = {
+      first: nameSplitArray[i][0],
 
       middle: function () {
-        if (nameSplit[i].slice([1], nameSplit[i].length - 1).length === 0) {
-          EachNewObject.middle = [];
+        if (nameSplitArray[i].slice([1], nameSplitArray[i].length - 1).length === 0) {
+          newObject.middle = [];
         } else {
-          EachNewObject.middle = nameSplit[i].slice(
-            [1],
-            nameSplit[i].length - 1
-          );
+          newObject.middle = nameSplitArray[i].slice([1], nameSplitArray[i].length - 1);
         }
       },
 
       last: function () {
-        if (nameSplit[i].length > 1) {
-          EachNewObject.last = nameSplit[i][nameSplit[i].length - 1];
-        } else if (nameSplit[i].length <= 1) {
-          EachNewObject.last = null;
+        if (nameSplitArray[i].length > 1) {
+          newObject.last = nameSplitArray[i][nameSplitArray[i].length - 1];
+        } else if (nameSplitArray[i].length <= 1) {
+          newObject.last = null;
         }
       },
     };
 
-    EachNewObject.middle();
-    EachNewObject.last();
-    result.push(EachNewObject);
+    newObject.middle();
+    newObject.last();
+    result.push(newObject);
   }
   return result;
 };
 
 completeObject(names);
-// console.log(result);
 
 // At the end call validate
 validate(result);
